@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
-import { FormInput, Button } from '..';
+import { FormInput, Button } from '../../components';
+
+import { UserContext } from '../../contexts';
 
 import {
   signInWithGooglePopup,
@@ -18,6 +20,8 @@ const defaultFormFields = {
 export const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { signInEmail, signInPassword } = formFields;
+
+  const { setCurrentUser } = useContext(UserContext);
 
   const handleChange = ({ target }) => {
     const { id, value } = target || {};
@@ -49,6 +53,7 @@ export const SignInForm = () => {
         signInPassword,
       );
       console.log('email and password login', user);
+      setCurrentUser(user);
       setFormFields(defaultFormFields);
     } catch (error) {
       switch (error.code) {
