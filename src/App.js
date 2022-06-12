@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { Home, Navigation } from './routes';
+import { Home, Navigation, Auth } from './routes';
 
 const Shop = () => (
   <>
@@ -15,6 +15,7 @@ export const App = () => {
       <Route path="/" element={<Navigation />}>
         <Route index element={<Home />} />
         <Route path="shop" element={<Shop />} />
+        <Route path="auth" element={<Auth />} />
       </Route>
     </Routes>
   );
