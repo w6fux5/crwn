@@ -5,5 +5,4 @@ export * from './sign-in';
 export * from './form-input';
 export * from './button';
 export * from './product-card';
-export * from './cart-icon';
-export * from './cart-dropdown';
+export * from './cart';

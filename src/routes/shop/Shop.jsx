@@ -9,7 +9,13 @@ export const Shop = () => {
   return (
     <div className={styles.container}>
       {products.map(({ id, name, imageUrl, price }) => (
-        <ProductCard key={id} name={name} image={imageUrl} price={price} />
+        <ProductCard
+          key={id}
+          id={id}
+          name={name}
+          image={imageUrl}
+          price={price}
+        />
       ))}
     </div>
   );

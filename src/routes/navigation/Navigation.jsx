@@ -13,7 +13,7 @@ import styles from './Navigation.module.scss';
 
 export const Navigation = () => {
   const { currentUser } = useContext(UserContext);
-  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
+  const { isCartOpen } = useContext(CartContext);
 
   return (
     <>
@@ -36,12 +36,7 @@ export const Navigation = () => {
             </Link>
           )}
 
-          <div
-            onMouseEnter={() => setIsCartOpen(true)}
-            onMouseLeave={() => setIsCartOpen(false)}
-          >
-            <CartIcon />
-          </div>
+          <CartIcon />
         </div>
 
         {isCartOpen && <CartDropdown />}
