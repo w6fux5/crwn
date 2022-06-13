@@ -6,3 +6,4 @@ export * from './form-input';
 export * from './button';
 export * from './product-card';
 export * from './cart';
+export * from './checkout-item';
