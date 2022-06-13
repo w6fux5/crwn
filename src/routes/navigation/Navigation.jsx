@@ -3,7 +3,9 @@ import { Outlet, Link } from 'react-router-dom';
 
 import { signOutUser } from '../../utils';
 
-import { UserContext } from '../../contexts';
+import { CartIcon, CartDropdown } from '../../components';
+
+import { UserContext, CartContext } from '../../contexts';
 
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 
@@ -11,6 +13,7 @@ import styles from './Navigation.module.scss';
 
 export const Navigation = () => {
   const { currentUser } = useContext(UserContext);
+  const { isCartOpen, setIsCartOpen } = useContext(CartContext);
 
   return (
     <>
@@ -18,8 +21,6 @@ export const Navigation = () => {
         <Link to="/" className={styles['logo-container']}>
           <CrwnLogo />
         </Link>
-
-        <span>{currentUser?.displayName}</span>
 
         <div className={styles['nav-links-container']}>
           <Link to="/shop" className={styles['nav-link']}>
@@ -34,7 +35,16 @@ export const Navigation = () => {
               Sign In
             </Link>
           )}
+
+          <div
+            onMouseEnter={() => setIsCartOpen(true)}
+            onMouseLeave={() => setIsCartOpen(false)}
+          >
+            <CartIcon />
+          </div>
         </div>
+
+        {isCartOpen && <CartDropdown />}
       </nav>
       <Outlet />
     </>

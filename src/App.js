@@ -1,13 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import { Home, Navigation, Auth } from './routes';
-
-const Shop = () => (
-  <>
-    <h1>Shop</h1>
-  </>
-);
+import { Home, Navigation, Auth, Shop } from './routes';
 
 export const App = () => {
   return (
