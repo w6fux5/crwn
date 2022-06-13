@@ -1,4 +1,9 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
+
+import {
+  onAuthStateChangedListener,
+  createUserDocumentFromAuth,
+} from '../utils';
 
 export const UserContext = createContext({
   currentUser: null,
@@ -11,5 +16,16 @@ export const UserProvider = ({ children }) => {
     currentUser,
     setCurrentUser,
   };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((currentUser) => {
+      if (currentUser) {
+        createUserDocumentFromAuth(currentUser);
+      }
+      setCurrentUser(currentUser);
+    });
+
+    return unsubscribe;
+  }, []);
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };

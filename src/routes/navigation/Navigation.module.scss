@@ -3,12 +3,21 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 25px;
+
+  .nav-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
   .logo-container {
     height: 100%;
     width: 70px;
-    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav-links-container {

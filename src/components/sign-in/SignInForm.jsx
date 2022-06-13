@@ -1,12 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 
 import { FormInput, Button } from '../../components';
 
-import { UserContext } from '../../contexts';
-
 import {
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
   signAuthUserWithEmailAndPassword,
 } from '../../utils';
 
@@ -21,11 +18,8 @@ export const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { signInEmail, signInPassword } = formFields;
 
-  const { setCurrentUser } = useContext(UserContext);
-
   const handleChange = ({ target }) => {
     const { id, value } = target || {};
-
     setFormFields((prev) => ({
       ...prev,
       [id]: value,
@@ -37,7 +31,6 @@ export const SignInForm = () => {
       alert('密碼至少6位數');
       return false;
     }
-
     return true;
   };
 
@@ -45,15 +38,11 @@ export const SignInForm = () => {
     e.preventDefault();
 
     const isValid = validForm();
+
     if (!isValid) return;
 
     try {
-      const { user } = await signAuthUserWithEmailAndPassword(
-        signInEmail,
-        signInPassword,
-      );
-      console.log('email and password login', user);
-      setCurrentUser(user);
+      await signAuthUserWithEmailAndPassword(signInEmail, signInPassword);
       setFormFields(defaultFormFields);
     } catch (error) {
       switch (error.code) {
@@ -73,12 +62,6 @@ export const SignInForm = () => {
           console.log(error?.code || error);
       }
     }
-  };
-
-  const loginWithGoogle = async () => {
-    const { user } = await signInWithGooglePopup();
-    await createUserDocumentFromAuth(user);
-    console.log('google login', user);
   };
 
   return (
@@ -110,7 +93,11 @@ export const SignInForm = () => {
         />
         <div className={styles['button-container']}>
           <Button type="submit">登入</Button>
-          <Button buttonType="google" type="button" onClick={loginWithGoogle}>
+          <Button
+            buttonType="google"
+            type="button"
+            onClick={signInWithGooglePopup}
+          >
             google 帳號登入
           </Button>
         </div>
