@@ -1,4 +1,4 @@
-export * from './category-item';
+export * from './category';
 export * from './directory';
 export * from './sign-up';
 export * from './sign-in';
