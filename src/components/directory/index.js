@@ -1,1 +1,2 @@
-export * from './Directory';
+export * from './directories/Directories';
+export * from './directory-item/DirectoryItem';

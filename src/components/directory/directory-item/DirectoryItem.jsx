@@ -1,7 +1,7 @@
 import React from 'react';
-import styles from './CategoryItem.module.scss';
+import styles from './DirectoryItem.module.scss';
 
-export const Category = ({ title, imageUrl }) => {
+export const DirectoryItem = ({ title, imageUrl }) => {
   return (
     <div className={styles['category-container']}>
       <div

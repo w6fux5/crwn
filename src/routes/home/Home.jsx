@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Directory } from '../../components';
+import { Directories } from '../../components';
 
-const categories = [
+const directories = [
   {
     id: 1,
     title: 'hats',
@@ -32,7 +32,7 @@ const categories = [
 export const Home = () => {
   return (
     <div>
-      <Directory categories={categories} />
+      <Directories directories={directories} />
     </div>
   );
 };
