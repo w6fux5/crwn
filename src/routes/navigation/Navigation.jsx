@@ -1,19 +1,23 @@
 import React, { useContext } from 'react';
 import { Outlet, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { signOutUser } from '../../utils';
 
 import { CartIcon, CartDropdown } from '../../components';
 
-import { UserContext, CartContext } from '../../contexts';
+import { CartContext } from '../../contexts';
+
+import { selectCurrentUser } from '../../store';
 
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 
 import styles from './Navigation.module.scss';
 
 export const Navigation = () => {
-  const { currentUser } = useContext(UserContext);
   const { isCartOpen } = useContext(CartContext);
+
+  const currentUser = useSelector(selectCurrentUser);
 
   return (
     <>
@@ -26,11 +30,14 @@ export const Navigation = () => {
           <Link to="/shop" className={styles['nav-link']}>
             SHOP
           </Link>
-          {currentUser ? (
+
+          {currentUser && (
             <span onClick={signOutUser} className={styles['nav-link']}>
               Sign Out
             </span>
-          ) : (
+          )}
+
+          {!currentUser && (
             <Link to="/auth" className={styles['nav-link']}>
               Sign In
             </Link>

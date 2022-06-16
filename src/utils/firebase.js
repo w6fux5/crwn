@@ -72,13 +72,15 @@ export const getCategoriesAndDocuments = async () => {
 
   const querySnapshot = await getDocs(q);
 
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
+  return querySnapshot.docs.map((docSnapshot) => docSnapshot.data());
 
-  return categoryMap;
+  // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+  //   const { title, items } = docSnapshot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // }, {});
+
+  // return categoryMap;
 };
 
 // 登入或註冊的 User 如果不存在於 firebase 數據庫，就將其保存到數據庫
