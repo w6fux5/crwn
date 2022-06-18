@@ -7,3 +7,4 @@ export * from './button';
 export * from './product-card';
 export * from './cart';
 export * from './checkout-item';
+export * from './spinner';

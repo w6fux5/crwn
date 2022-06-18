@@ -1,5 +1,16 @@
 import { categoryTypes } from './categoryTypes';
-import { createActions } from '../../utils';
+import { createActions, getCategoriesAndDocuments } from '../../utils';
 
-export const setCategories = (categoryArray) =>
-  createActions(categoryTypes.SET_CATEGORIES, categoryArray);
+export const fetchCategoriesAsync = () => async (dispatch) => {
+  dispatch(createActions(categoryTypes.FETCH_CATEGORIES_START));
+  try {
+    const categoryArray = await getCategoriesAndDocuments();
+    dispatch(
+      createActions(categoryTypes.FETCH_CATEGORIES_SUCCESS, categoryArray),
+    );
+  } catch (error) {
+    dispatch(
+      createActions(categoryTypes.FETCH_CATEGORIES_FAILED, error.message),
+    );
+  }
+};

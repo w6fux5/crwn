@@ -1,29 +1,23 @@
 import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { getCategoriesAndDocuments } from '../../utils';
 
 import { useActions } from '../../hooks';
 
 import { Categories, Category } from '../../routes';
 
 export const Shop = () => {
-  const { setCategories } = useActions();
+  const { fetchCategoriesAsync } = useActions();
 
   useEffect(() => {
-    const getCategoriesMap = async () => {
-      const categoriesArray = await getCategoriesAndDocuments();
-      setCategories(categoriesArray);
-    };
-
-    getCategoriesMap();
-
-    // eslint-disable-next-line
+    fetchCategoriesAsync();
   }, []);
 
   return (
-    <Routes>
-      <Route index element={<Categories />} />
-      <Route path=":category" element={<Category />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route index element={<Categories />} />
+        <Route path=":category" element={<Category />} />
+      </Routes>
+    </>
   );
 };

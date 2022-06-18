@@ -23,6 +23,7 @@
         "Crwn",
         "firestore",
         "MESSAGIN",
+        "persistor",
         "sundes"
     ],
 }
