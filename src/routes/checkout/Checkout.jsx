@@ -1,18 +1,34 @@
-import React, { useContext } from 'react';
+import React from 'react';
+
+import { useSelector } from 'react-redux';
+
+import { cartSelector } from '../../store';
+
 import { CheckoutItem } from '../../components';
-import { CartContext } from '../../contexts';
+
+import { useActions } from '../../hooks';
+
 import styles from './Checkout.module.scss';
 
 const HEADER_LIST = ['Product', 'Description', 'Quantity', 'Price', 'Remove'];
 
 export const Checkout = () => {
-  const {
-    cartItems,
-    addItemToCart,
-    removeItemFormCart,
-    clearItemFromCart,
-    totalAmount,
-  } = useContext(CartContext);
+  const { addItemToCart, removeItemFormCart, clearItemFromCart } = useActions();
+
+  const cartItems = useSelector(cartSelector.selectCartItems);
+  const totalAmount = useSelector(cartSelector.selectCartTotalAmount);
+
+  const addHandler = (item) => {
+    addItemToCart(cartItems, item);
+  };
+
+  const removeHandler = (id) => {
+    removeItemFormCart(cartItems, id);
+  };
+
+  const clearHandler = (id) => {
+    clearItemFromCart(cartItems, id);
+  };
   return (
     <section className={styles.container}>
       <header className={styles['checkout-header']}>
@@ -28,9 +44,9 @@ export const Checkout = () => {
           <CheckoutItem
             key={item.id}
             item={item}
-            addItemToCart={addItemToCart}
-            removeItemFormCart={removeItemFormCart}
-            clearItemFromCart={clearItemFromCart}
+            addItemToCart={addHandler}
+            removeItemFormCart={removeHandler}
+            clearItemFromCart={clearHandler}
           />
         );
       })}

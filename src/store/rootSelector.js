@@ -1,2 +1,3 @@
 export * from './user/userSelector';
-export * from './category/categorySelector';
+export * as categorySelector from './category/categorySelector';
+export * as cartSelector from './cart/cartSelector';

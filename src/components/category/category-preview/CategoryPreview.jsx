@@ -1,5 +1,6 @@
 import React from 'react';
 import { ProductCard } from '../../../components';
+
 import styles from './CategoryPreview.module.scss';
 
 export const CategoryPreview = ({ title, products }) => {

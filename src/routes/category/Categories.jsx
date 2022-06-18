@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 
 import { CategoryPreview } from '../../components';
 
-import { selectorCategoriesMap } from '../../store';
+import { categorySelector } from '../../store';
 
 import styles from './Categories.module.scss';
 
 export const Categories = () => {
-  const categoryMap = useSelector(selectorCategoriesMap);
+  const categoryMap = useSelector(categorySelector.selectorCategoriesMap);
 
   return (
     <div className={styles.container}>
