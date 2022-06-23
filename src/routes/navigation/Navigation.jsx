@@ -2,8 +2,6 @@ import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import { signOutUser } from '../../utils';
-
 import { CartIcon, CartDropdown } from '../../components';
 
 import { selectCurrentUser, cartSelector } from '../../store';
@@ -11,10 +9,13 @@ import { selectCurrentUser, cartSelector } from '../../store';
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg';
 
 import styles from './Navigation.module.scss';
+import { useActions } from '../../hooks/useActions';
 
 export const Navigation = () => {
   const currentUser = useSelector(selectCurrentUser);
   const isCartOpen = useSelector(cartSelector.selectIsCartOpen);
+
+  const { signOutStart } = useActions();
 
   return (
     <>
@@ -29,7 +30,7 @@ export const Navigation = () => {
           </Link>
 
           {currentUser && (
-            <span onClick={signOutUser} className={styles['nav-link']}>
+            <span onClick={signOutStart} className={styles['nav-link']}>
               Sign Out
             </span>
           )}

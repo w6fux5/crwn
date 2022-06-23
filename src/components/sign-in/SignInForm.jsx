@@ -2,12 +2,8 @@ import React, { useState } from 'react';
 
 import { FormInput, Button } from '../../components';
 
-import {
-  signInWithGooglePopup,
-  signAuthUserWithEmailAndPassword,
-} from '../../utils';
-
 import styles from './SignInForm.module.scss';
+import { useActions } from '../../hooks/useActions';
 
 const defaultFormFields = {
   signInEmail: '',
@@ -17,6 +13,8 @@ const defaultFormFields = {
 export const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { signInEmail, signInPassword } = formFields;
+
+  const { googleSignIn, emailSignIn } = useActions();
 
   const handleChange = ({ target }) => {
     const { id, value } = target || {};
@@ -41,27 +39,8 @@ export const SignInForm = () => {
 
     if (!isValid) return;
 
-    try {
-      await signAuthUserWithEmailAndPassword(signInEmail, signInPassword);
-      setFormFields(defaultFormFields);
-    } catch (error) {
-      switch (error.code) {
-        case 'auth/user-not-found':
-          alert('帳號不存在');
-          break;
-
-        case 'auth/wrong-password':
-          alert('無效的帳號或是密碼');
-          break;
-
-        case 'auth/too-many-requests':
-          alert('太多請求');
-          break;
-
-        default:
-          console.log(error?.code || error);
-      }
-    }
+    emailSignIn({ email: signInEmail, password: signInPassword });
+    setFormFields(defaultFormFields);
   };
 
   return (
@@ -93,11 +72,7 @@ export const SignInForm = () => {
         />
         <div className={styles['button-container']}>
           <Button type="submit">登入</Button>
-          <Button
-            buttonType="google"
-            type="button"
-            onClick={signInWithGooglePopup}
-          >
+          <Button buttonType="google" type="button" onClick={googleSignIn}>
             google 帳號登入
           </Button>
         </div>

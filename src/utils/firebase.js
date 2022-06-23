@@ -110,7 +110,7 @@ export const createUserDocumentFromAuth = async (
     }
   }
 
-  return userDocRef;
+  return userSnapshot;
 };
 
 // 使用 email 和密碼創建使用者
@@ -132,3 +132,16 @@ export const signOutUser = async () => {
 
 // 監聽 User 驗證的狀態
 export const onAuthStateChangedListener = (cb) => onAuthStateChanged(auth, cb);
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        unsubscribe();
+        resolve(userAuth);
+      },
+      reject,
+    );
+  });
+};

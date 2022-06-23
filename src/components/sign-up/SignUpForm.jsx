@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import { FormInput, Button } from '../../components';
 
+import { useActions } from '../../hooks';
+
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
@@ -19,6 +21,8 @@ const defaultFormFields = {
 export const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { name, email, password, confirmPassword } = formFields;
+
+  const { signUpStart } = useActions();
 
   const handleChange = ({ target }) => {
     const { id, value } = target || {};
@@ -50,14 +54,7 @@ export const SignUpForm = () => {
     if (!isValid) return;
 
     try {
-      const { user } = await createAuthUserWithEmailAndPassword(
-        email,
-        password,
-      );
-
-      await createUserDocumentFromAuth(user, {
-        displayName: name,
-      });
+      signUpStart(email, password, name);
 
       setFormFields(defaultFormFields);
     } catch (error) {

@@ -6,10 +6,10 @@ import { useActions } from '../../hooks';
 import { Categories, Category } from '../../routes';
 
 export const Shop = () => {
-  const { fetchCategoriesAsync } = useActions();
+  const { fetchCategoryStart } = useActions();
 
   useEffect(() => {
-    fetchCategoriesAsync();
+    fetchCategoryStart();
   }, []);
 
   return (
